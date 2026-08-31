@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Opportunity Ranking - Capstone Research Paper</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #222; max-width: 850px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; }
+    .card { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; border: 1px solid #e1e4e8; }
+    h1 { color: #111; margin-top: 0; }
+    h2 { color: #0366d6; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-top: 24px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+    th { background-color: #f6f8fa; }
+    img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #e1e4e8; margin: 16px 0; }
+    .callout { background: #f1f8ff; border-left: 4px solid #0366d6; padding: 12px 16px; margin: 16px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Content Opportunity Ranking & Decision Support</h1>
+    <p><em>Capstone Research Paper — FlyRank Content Portfolio Case Study</em></p>
+    <hr>
+
+    <h2>Abstract & Case Study Context</h2>
+    <p><strong>Context:</strong> Large digital content operations frequently manage thousands of published URLs where performance degrades silently or fails to capture expected search visibility. For content-driven platforms like FlyRank, manually auditing every page to improve click-through rates (CTR) and engagement is resource-prohibitive.</p>
+    <p><strong>Objective:</strong> This paper presents an observational machine learning approach to rank high-impression, low-CTR content for targeted editorial review, framing model outputs strictly as decision-support tools rather than automated rewrite engines.</p>
+
+    <h2>1. Question</h2>
+    <p><strong>Research Question:</strong> How can content performance metrics be used to prioritize high-impression, low-CTR pages for potential editorial review?</p>
+    <p><strong>Decision Supported:</strong> Provides decision-support ranking for content strategists to identify pages deserving human review first, rather than attempting automated page rewrites.</p>
+
+    <h2>2. Data</h2>
+    <p>The analysis utilizes an anonymized release of 30,000 content performance records across 32 clients. Metrics track trailing 90-day performance (impressions, clicks, position, and days since last update). Exclusions were applied to non-visible pages to isolate realistic optimization candidates.</p>
+
+    <h2>3. Methodology</h2>
+    <p>The target label (<code>opportunity</code>) is defined by visible pages (position ≤ 20) with high impression volume (≥ 500) and low CTR (&lt; 0.5%). We evaluated models using both random split and grouped-by-client validation designs to detect client-level data leakage.</p>
+
+    <h2>4. Results (vs. Baseline)</h2>
+    <p>Initial evaluation on a random split yielded high Precision@50 (0.920). However, evaluating across unseen client groups (grouped split) revealed a more realistic performance of 0.560, still substantially outperforming the observed base rate of 0.1844.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>K</th>
+          <th>Base Rate</th>
+          <th>Random Split Precision@K</th>
+          <th>Grouped Split Precision@K</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>50</td><td>0.1844</td><td>0.920</td><td>0.560</td></tr>
+        <tr><td>100</td><td>0.1844</td><td>0.860</td><td>0.630</td></tr>
+        <tr><td>200</td><td>0.1844</td><td>0.800</td><td>0.620</td></tr>
+        <tr><td>500</td><td>0.1844</td><td>0.692</td><td>0.554</td></tr>
+        <tr><td>1000</td><td>0.1844</td><td>0.578</td><td>0.420</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Limitations</h2>
+    <div class="callout">
+      <ul>
+        <li><strong>Decision Support Only:</strong> Flagged pages indicate audit priority, not guaranteed performance improvements.</li>
+        <li><strong>Client Generalization:</strong> The drop from random to grouped validation highlights that learned patterns vary across distinct client domains.</li>
+        <li><strong>Observational Data:</strong> Single 90-day window without controlled A/B interventions.</li>
+      </ul>
+    </div>
+
+    <h2>6. Ranked Recommendations</h2>
+    <p>Action queue generated with 800 flagged pages labeled under <code>weak_ctr_visible</code> for human editor triage. Strict no-go rules prohibit automated bulk rewrites or deleting pages without organic search audit.</p>
+
+    <h2>7. Artifacts</h2>
+    <p>Validation performance comparison chart saved during capstone analysis:</p>
+    <img src="../outputs/validation_precision_k.png" alt="Precision at K Validation Chart">
+  </div>
+
+</body>
+</html>
